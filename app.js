@@ -103,7 +103,7 @@ function dragEnd() {
 
 // Checking for matches
 
-function checkForThree() {
+function checkRowForThree() {
     for (let i = 0; i < 61; i++) {
         let rowOfThree = [i, i + 1, i + 2]
         // pobierany jest kolor pierwszego kwadratu (decidedColor) i sprawdzane jest, czy jest on pusty (czyli czy kwadrat jest pusty). To jest zapisywane w zmiennej isBlank.
@@ -117,10 +117,25 @@ function checkForThree() {
 
     }
 }
+function checkColumnForThree() {
+    for (let i = 0; i < 47; i++) {
+        let columnOfThree = [i, i + width, i + width * 2]
+        // pobierany jest kolor pierwszego kwadratu (decidedColor) i sprawdzane jest, czy jest on pusty (czyli czy kwadrat jest pusty). To jest zapisywane w zmiennej isBlank.
+        let decidedColor = squares[i].style.backgroundColor
+        let isBlank = squares[i].style.backgroundColor === ''
 
-checkForThree();
+        if (columnOfThree.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+            score += 3;
+            columnOfThree.forEach(index => squares[index].style.backgroundColor = '');
+        }
+
+    }
+}
+checkColumnForThree();
+
 // teraz ustawiamy funkcje, że jeżeli mamy puste przestrzenie to one takie pozostaną
-window.setInterval(function() {
-    checkForThree()
+window.setInterval(function () {
+    checkRowForThree()
+    checkColumnForThree()
 }, 100)
 // warto tutaj dodać jakiś przycisk aktywujący tą funkcje lub dodający inną funkcjonalnośc - no cóz, wszystko przed nami ! :)
