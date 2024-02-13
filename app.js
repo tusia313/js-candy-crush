@@ -102,12 +102,44 @@ function dragEnd() {
     } else squares[squareIdBeingDragged].style.backgroundColor = colorBeingDragged
 }
 
+// drop candies once some have benn cleared
+
 // Checking for matches
+// check for 4 row or column
 
+function checkRowForFour() {
+    for (let i = 0; i < 60; i++) {
+        let rowOfFour = [i, i + 1, i + 2, i + 3]
+        let decidedColor = squares[i].style.backgroundColor
+        let isBlank = squares[i].style.backgroundColor === ''
 
+        // zapobiegamy by nam się nasze ROW nie złamało pod koniec wersu
+        const notValid = [5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45,  46, 47, 53, 54, 55]
+        if (notValid.includes(i)) continue
 
+        if (rowOfFour.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+            score += 4;
+            rowOfFour.forEach(index => squares[index].style.backgroundColor = '');
+        }
 
+    }
+}
+function checkColumnForFour() {
+    for (let i = 0; i < 46; i++) {
+        let columnOfFour = [i, i + width, i + width * 2, i + width * 3]
+        let decidedColor = squares[i].style.backgroundColor
+        let isBlank = squares[i].style.backgroundColor === ''
 
+        if (columnOfFour.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+            score += 4;
+            columnOfFour.forEach(index => squares[index].style.backgroundColor = '');
+        }
+
+    }
+}
+checkColumnForFour();
+
+// check for 3 row or column
 
 function checkRowForThree() {
     for (let i = 0; i < 61; i++) {
@@ -145,6 +177,8 @@ checkColumnForThree();
 
 // teraz ustawiamy funkcje, że jeżeli mamy puste przestrzenie to one takie pozostaną
 window.setInterval(function () {
+    checkRowForFour()
+    checkColumnForFour()
     checkRowForThree()
     checkColumnForThree()
 }, 100)
