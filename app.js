@@ -88,6 +88,7 @@ function dragEnd() {
     ]
     // jest to przydatne, jeśli chcesz sprawdzić, czy ruch dokonany przez gracza jest dopuszczalny, tj. czy kwadrat, na który gracz chce przesunąć element, jest jednym z możliwych ruchów na podstawie aktualnego stanu gry.
     let validMove = validMoves.includes(squareIdBeingReplaced)
+
     // Następnie, warunek if (squareIdBeingReplaced && validMove) sprawdza, czy squareIdBeingReplaced istnieje i czy ruch jest uznawany za prawidłowy (czyli jeśli validMove jest true). Jeśli tak, to znaczy, że ruch jest dopuszczalny, więc squareIdBeingReplaced jest ustawiany na null. W ten sposób uniemożliwia się dalsze przetwarzanie tej zmiennej w przypadku powtórzenia ruchu lub ruchu, który nie jest dopuszczalny.
 
     // Natomiast, warunek else if (squareIdBeingReplaced && !validMove) sprawdza, czy squareIdBeingReplaced istnieje i czy ruch nie jest uznawany za prawidłowy (czyli jeśli validMove jest false). Jeśli tak, oznacza to, że gracz próbuje wykonać ruch, który nie jest dozwolony. W takim przypadku kolor przeciąganego kwadratu (squareIdBeingDragged) zostaje przywrócony do oryginalnego koloru, a kolor kwadratu docelowego (squareIdBeingReplaced) zostaje zachowany.
@@ -103,12 +104,21 @@ function dragEnd() {
 
 // Checking for matches
 
+
+
+
+
+
 function checkRowForThree() {
     for (let i = 0; i < 61; i++) {
         let rowOfThree = [i, i + 1, i + 2]
         // pobierany jest kolor pierwszego kwadratu (decidedColor) i sprawdzane jest, czy jest on pusty (czyli czy kwadrat jest pusty). To jest zapisywane w zmiennej isBlank.
         let decidedColor = squares[i].style.backgroundColor
         let isBlank = squares[i].style.backgroundColor === ''
+
+        // zapobiegamy by nam się nasze ROW nie złamało pod koniec wersu
+        const notValid = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55]
+        if (notValid.includes(i)) continue
 
         if (rowOfThree.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
             score += 3;
