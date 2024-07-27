@@ -1,7 +1,7 @@
-# js-candy-crush
+# 🍬 Candy Crush 🍬
 This project is a simple implementation of the classic Candy Crush game using HTML, CSS, and JavaScript. The purpose of this project is to practice and enhance JavaScript programming skills by building a fun and interactive game.
 
-## Features
+## 🍬 First look
 
 - Grid-based game board with colorful candy tiles
 - Match-3 gameplay mechanics
@@ -9,7 +9,7 @@ This project is a simple implementation of the classic Candy Crush game using HT
 - Time-limited rounds for added challenge
 - Interactive animations and effects
 
-## Technologies Used
+## 🍬 Technologies 
 
 - HTML5 for the structure and layout of the game board
 - CSS3 for styling and animations
@@ -22,7 +22,7 @@ This project is a simple implementation of the classic Candy Crush game using HT
 .setAttribute() and more :)
 ```
 
-## Getting Started
+## 🍬 Getting Started
 
 To run the game locally, follow these steps:
 
@@ -32,7 +32,7 @@ To run the game locally, follow these steps:
 
 3. Start matching candies and enjoy the game!
 
-## Inspiraton
+## 🍬 Inspiraton :)
 
 Ania Kubow <3
 
