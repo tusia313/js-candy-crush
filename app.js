@@ -104,6 +104,22 @@ function dragEnd() {
 
 // drop candies once some have benn cleared
 
+function dropDown() {
+    for (let i = 0; i < 55; i++) {
+        if (squares[i + width].style.backgroundColor === '') {
+            squares[i + width].style.backgroundColor = squares[i].style.backgroundColor
+            squares[i].style.backgroundColor = ''
+            // Po zakończeniu przesuwania kwadratów, sprawdź pierwszy rząd i nadaj losowy kolor pustym kwadratom
+            const firstRow = [0, 1, 2, 3, 4, 5, 6, 7]
+            const isFirstRow = firstRow.includes(i)
+            if (isFirstRow && squares[i].style.backgroundColor === '') {
+                let randomColor = Math.floor(Math.random() * candyColors.length)
+                squares[i].style.backgroundColor = candyColors[randomColor]
+            }
+        }
+    }
+}
+
 // Checking for matches
 // check for 4 row or column
 
@@ -114,7 +130,7 @@ function checkRowForFour() {
         let isBlank = squares[i].style.backgroundColor === ''
 
         // zapobiegamy by nam się nasze ROW nie złamało pod koniec wersu
-        const notValid = [5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45,  46, 47, 53, 54, 55]
+        const notValid = [5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53, 54, 55]
         if (notValid.includes(i)) continue
 
         if (rowOfFour.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
@@ -124,8 +140,10 @@ function checkRowForFour() {
 
     }
 }
+checkRowForFour()
+
 function checkColumnForFour() {
-    for (let i = 0; i < 46; i++) {
+    for (let i = 0; i < 39; i++) {
         let columnOfFour = [i, i + width, i + width * 2, i + width * 3]
         let decidedColor = squares[i].style.backgroundColor
         let isBlank = squares[i].style.backgroundColor === ''
@@ -137,7 +155,7 @@ function checkColumnForFour() {
 
     }
 }
-checkColumnForFour();
+checkColumnForFour()
 
 // check for 3 row or column
 
@@ -159,8 +177,10 @@ function checkRowForThree() {
 
     }
 }
+checkRowForThree();
+
 function checkColumnForThree() {
-    for (let i = 0; i < 47; i++) {
+    for (let i = 0; i < 45; i++) {
         let columnOfThree = [i, i + width, i + width * 2]
         // pobierany jest kolor pierwszego kwadratu (decidedColor) i sprawdzane jest, czy jest on pusty (czyli czy kwadrat jest pusty). To jest zapisywane w zmiennej isBlank.
         let decidedColor = squares[i].style.backgroundColor
@@ -177,6 +197,7 @@ checkColumnForThree();
 
 // teraz ustawiamy funkcje, że jeżeli mamy puste przestrzenie to one takie pozostaną
 window.setInterval(function () {
+    dropDown()
     checkRowForFour()
     checkColumnForFour()
     checkRowForThree()
