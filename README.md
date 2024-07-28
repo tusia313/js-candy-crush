@@ -19,7 +19,13 @@ This project is a simple implementation of the classic Candy Crush game using HT
 .some()
 .forEach() 
 .includes()
+.createElement()
+.appendChild()
 .setAttribute() and more :)
+```
+for arrays: 
+```
+.push() (send data to array)
 ```
 
 ## 🍬 Getting Started
@@ -34,9 +40,7 @@ To run the game locally, follow these steps:
 
 ## 🍬 Inspiraton :)
 
-Ania Kubow <3
-
-I
+Ania Kubow !
 
 
 

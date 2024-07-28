@@ -15,4 +15,5 @@ body {
 .grid div {
     width: 70px;
     height: 70px;
+    background-color: plum;
 }
