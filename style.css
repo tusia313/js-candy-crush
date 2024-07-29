@@ -2,7 +2,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(186, 85, 211, 0.05);
+    background: url('images/candy-crush-background-2.png');
+    background-size: cover;
 }
 
 .grid {
@@ -15,5 +16,4 @@ body {
 .grid div {
     width: 70px;
     height: 70px;
-    background-color: plum;
 }

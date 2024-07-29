@@ -21,7 +21,9 @@ This project is a simple implementation of the classic Candy Crush game using HT
 .includes()
 .createElement()
 .appendChild()
-.setAttribute() and more :)
+.setAttribute('draggable', true) and more :)
+.Math.floor(), .Math.random()
+parseInt() ( to make sure that this is a number )
 ```
 for arrays: 
 ```
