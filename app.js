@@ -1,14 +1,15 @@
 const grid = document.querySelector('.grid')
 const width = 8
 const squares = []
+let score = 0
 
 const candyColors = [
-   'url(images/blue-candy.png)',
-   'url(images/green-candy.png)',
-   'url(images/red-candy.png)',
-   'url(images/orange-candy.png)',
-   'url(images/yellow-candy.png)',
-   'url(images/purple-candy.png)'
+    'url(images/blue-candy.png)',
+    'url(images/green-candy.png)',
+    'url(images/red-candy.png)',
+    'url(images/orange-candy.png)',
+    'url(images/yellow-candy.png)',
+    'url(images/purple-candy.png)'
 ]
 
 // making Board
@@ -64,7 +65,7 @@ function dragDrop() {
     console.log(this.id, 'drop')
     colorBeingReplaced = this.style.backgroundImage
     squareIdBeingReplaced = parseInt(this.id)
-    // tutaj poniżej, jezeli ruch jest dozwolony to zamieniamy kolory
+    // kluczowe linijki, jezeli ruch jest dozwolony, to zamieniamy kolory
     this.style.backgroundImage = colorBeingDragged
     squares[squareIdBeingDragged].style.backgroundImage = colorBeingReplaced
 }
@@ -90,3 +91,47 @@ function dragEnd() {
         console.log('Ruch jest nielegalny, cofnięcie ruchu')
     } else squares[squareIdBeingDragged].style.backgroundImage = colorBeingDragged
 }
+
+// checking for matching
+// check row for three
+
+function checkRowForThree() {
+    for (i = 0; i < 61; i++) {
+        let rowOfThree = [i, i + 1, i + 2]
+        let decidedColor = squares[i].style.backgroundImage
+        // super zabieg logiczny!
+        const isBlank = squares[i].style.backgroundImage === ''
+// .every(): Sprawdza, czy każdy element w tablicy spełnia określony warunek. Zwraca true, jeśli wszystkie elementy tablicy spełniają warunek; w przeciwnym razie false.
+        if (rowOfThree.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
+            score += 3
+            // Wykonuje podaną funkcję dla każdego elementu tablicy.
+            rowOfThree.forEach(index => {
+                squares[index].style.backgroundImage = ''
+            })
+        }
+    }
+}
+checkRowForThree()
+
+// check column for three
+
+function checkColumnForThree() {
+    for (i = 0; i < 47; i++) {
+        // używamy width, bo indeksy obok siebie s rozne!
+        let columnOfThree = [i, i + width, i + width*2]
+        let decidedColor = squares[i].style.backgroundImage
+        const isBlank = squares[i].style.backgroundImage === ''
+        if (columnOfThree.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
+            score += 3
+            columnOfThree.forEach(index => {
+                squares[index].style.backgroundImage = ''
+            })
+        }
+    }
+}
+checkColumnForThree()
+
+window.setInterval(function() {
+    checkRowForThree()
+    checkColumnForThree()
+}, 100)
