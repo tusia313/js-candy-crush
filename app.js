@@ -92,16 +92,51 @@ function dragEnd() {
     } else squares[squareIdBeingDragged].style.backgroundImage = colorBeingDragged
 }
 
+// drop candies once someone has been cleared them
+function moveDown() {
+    // sprawdzanie elementów do rzędu poniżej, czyli wypada nam ostatni rzad 
+    for (i = 0; i < 55; i++) {
+        // Jeśli element poniżej jest pusty to ma wykonać się następujaco:
+        if (squares[i + width].style.backgroundImage === '') {
+            // 1.Ten pusty kwadrat wypełniamy kolorem
+            squares[i + width].style.backgroundImage = squares[i].style.backgroundImage
+            // 2.A ponad nim puste - w końcu on spada w dół :)
+            squares[i].style.backgroundImage = ''
+        }
+    }
+
+      // Uzupełnianie braków na górze
+      for (let i = 0; i < width; i++) {
+        if (squares[i].style.backgroundImage === '') {
+            // Tworzymy nowy cukierek na górze, np. losując jego kolor
+            let randomCandy = Math.floor(Math.random() * candyColors.length);
+            squares[i].style.backgroundImage = candyColors[randomCandy];
+        }
+    }
+       // alterantywna wersja, gdyby logika była trudniejsza
+    // const firstRow = [0, 1, 2, 3, 4, 5, 6, 7]
+    // const isFirstRow = firstRow.includes(i)
+    // if (isFirstRow && squares[i].style.backgroundImage === '') {
+    //     let randomCandy = Math.floor(Math.random() * candyColors.length);
+    //         squares[i].style.backgroundImage = candyColors[randomCandy];
+    // }
+}
+moveDown()
+
 // checking for matching
 // check row for three
-
 function checkRowForThree() {
     for (i = 0; i < 61; i++) {
         let rowOfThree = [i, i + 1, i + 2]
         let decidedColor = squares[i].style.backgroundImage
         // super zabieg logiczny!
         const isBlank = squares[i].style.backgroundImage === ''
-// .every(): Sprawdza, czy każdy element w tablicy spełnia określony warunek. Zwraca true, jeśli wszystkie elementy tablicy spełniają warunek; w przeciwnym razie false.
+        // .every(): Sprawdza, czy każdy element w tablicy spełnia określony warunek. Zwraca true, jeśli wszystkie elementy tablicy spełniają warunek; w przeciwnym razie false.
+
+        // zastasowanie .includes i continue
+        const notValid = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55]
+        if (notValid.includes(i)) continue
+
         if (rowOfThree.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
             score += 3
             // Wykonuje podaną funkcję dla każdego elementu tablicy.
@@ -114,11 +149,10 @@ function checkRowForThree() {
 checkRowForThree()
 
 // check column for three
-
 function checkColumnForThree() {
     for (i = 0; i < 47; i++) {
         // używamy width, bo indeksy obok siebie s rozne!
-        let columnOfThree = [i, i + width, i + width*2]
+        let columnOfThree = [i, i + width, i + width * 2]
         let decidedColor = squares[i].style.backgroundImage
         const isBlank = squares[i].style.backgroundImage === ''
         if (columnOfThree.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
@@ -131,7 +165,47 @@ function checkColumnForThree() {
 }
 checkColumnForThree()
 
-window.setInterval(function() {
+// check row for four
+function checkRowForFour() {
+    for (i = 0; i < 60; i++) {
+        let rowOfFour = [i, i + 1, i + 2, i + 3]
+        let decidedColor = squares[i].style.backgroundImage
+        const isBlank = squares[i].style.backgroundImage === ''
+        const notValid = [5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53, 54, 55]
+        if (notValid.includes(i)) continue
+
+        if (rowOfFour.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
+            score += 4
+            rowOfFour.forEach(index => {
+                squares[index].style.backgroundImage = ''
+            })
+        }
+    }
+}
+checkRowForFour()
+
+// check column for four
+function checkColumnForFour() {
+    for (i = 0; i < 46; i++) {
+        let columnOfFour = [i, i + width, i + width * 2, i + width * 3]
+        let decidedColor = squares[i].style.backgroundImage
+        const isBlank = squares[i].style.backgroundImage === ''
+        if (columnOfFour.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
+            score += 3
+            columnOfFour.forEach(index => {
+                squares[index].style.backgroundImage = ''
+            })
+        }
+    }
+}
+checkColumnForFour()
+
+
+window.setInterval(function () {
+    moveDown()
+    checkRowForFour()
+    checkColumnForFour()
     checkRowForThree()
     checkColumnForThree()
-}, 100)
+    moveDown()
+}, 150)
