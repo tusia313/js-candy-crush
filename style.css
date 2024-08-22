@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Chewy&family=Fredoka:wght@300..700&display=swap');
+
 body {
     display: flex;
-    justify-content: center;
+    /* flex-direction: column; */
+    justify-content:flex-start;
     align-items: center;
+    height: 100vh;
     background: url('images/candy-crush-background-2.png');
     background-size: cover;
 }
@@ -11,9 +15,35 @@ body {
     height: 560px;
     display: flex;
     flex-wrap: wrap;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 1em;
 }
 
 .grid div {
     width: 70px;
     height: 70px;
+}
+
+.score {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 30vw;
+    color: magenta;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.4rem;
+    /* border: 3px solid red; */
+    padding-right: 2rem;
+    
+}
+
+.score h1 {
+    margin: 0;
+    /* padding: 0 1rem; */
+}
+
+.score #display {
+    font-size: 4em;
+    font-weight: 700;
+    padding: 0 2rem;
 }

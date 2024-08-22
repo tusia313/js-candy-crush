@@ -1,6 +1,7 @@
 const grid = document.querySelector('.grid')
 const width = 8
 const squares = []
+const scoreDisplay = document.getElementById('display')
 let score = 0
 
 const candyColors = [
@@ -139,6 +140,7 @@ function checkRowForThree() {
 
         if (rowOfThree.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
             score += 3
+            scoreDisplay.innerHTML = score
             // Wykonuje podaną funkcję dla każdego elementu tablicy.
             rowOfThree.forEach(index => {
                 squares[index].style.backgroundImage = ''
@@ -157,6 +159,7 @@ function checkColumnForThree() {
         const isBlank = squares[i].style.backgroundImage === ''
         if (columnOfThree.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
             score += 3
+            scoreDisplay.innerHTML = score
             columnOfThree.forEach(index => {
                 squares[index].style.backgroundImage = ''
             })
@@ -176,6 +179,7 @@ function checkRowForFour() {
 
         if (rowOfFour.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
             score += 4
+            scoreDisplay.innerHTML = score
             rowOfFour.forEach(index => {
                 squares[index].style.backgroundImage = ''
             })
@@ -192,6 +196,7 @@ function checkColumnForFour() {
         const isBlank = squares[i].style.backgroundImage === ''
         if (columnOfFour.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
             score += 3
+            scoreDisplay.innerHTML = score
             columnOfFour.forEach(index => {
                 squares[index].style.backgroundImage = ''
             })
