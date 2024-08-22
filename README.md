@@ -11,7 +11,7 @@ This project is a simple implementation of the classic Candy Crush game using HT
 
 I can develop it to the next level ( by adding a button for example), but my main point was to see logic and all algorythms behind it :) 
 
-!(first page)[screen_1.png]
+!(first page)[images/screen_1.png]
 
 ## 🍬 Technologies 
 
