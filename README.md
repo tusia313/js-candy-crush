@@ -25,7 +25,7 @@ I can develop it to the next level ( by adding a button for example), but my mai
 .includes()
 .createElement()
 .appendChild()
-.setAttribute('draggable', true) and more :)
+.setAttribute('draggable', true)
 .Math.floor(), .Math.random()
 parseInt() ( to make sure that this is a number )
 ```
@@ -46,7 +46,7 @@ To run the game locally, follow these steps:
 
 ## 🍬 Inspiraton :)
 
-Ania Kubow !
+One and only Ania Kubow ! <3
 
 
 
